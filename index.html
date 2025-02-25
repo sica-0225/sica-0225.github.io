@@ -13,23 +13,54 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-M3PJB5T6');</script>
 <!-- End Google Tag Manager -->
     <style>
-    .button {
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 4px;
-    }
+ .button {
+ /* 基本樣式 */
+ background-color: #007bff;    /* 改用與網站主色調一致的藍色 */
+ border: none;
+ color: white;
+ padding: 0.8rem 1.5rem;      /* 使用 rem 單位保持一致性 */
+ text-align: center;
+ text-decoration: none;
+ display: inline-block;
+ font-size: 1rem;             /* 使用 rem 單位 */
+ margin: 0.25rem 0.125rem;    /* 使用 rem 單位 */
+ cursor: pointer;
+ border-radius: 5px;          /* 與網站其他元素統一圓角 */
+ 
+ /* 添加過渡效果 */
+ transition: all 0.3s ease;
+ 
+ /* 可選：添加陰影效果 */
+ box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 
-    .button:hover {
-        background-color: #45a049;
-    }
+.button:hover {
+ background-color: #0056b3;   /* 改用較深的藍色 */
+ transform: translateY(-2px);  /* 懸停時輕微上浮效果 */
+ box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* 可選：活動狀態 */
+.button:active {
+ transform: translateY(0);
+ box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 可選：禁用狀態 */
+.button:disabled {
+ background-color: #cccccc;
+ cursor: not-allowed;
+ transform: none;
+ box-shadow: none;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+ .button {
+     padding: 0.6rem 1.2rem;
+     font-size: 0.9rem;
+ }
+}
         
              /* 重置默認樣式 */
      * {
@@ -169,6 +200,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3PJB5T6"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+    
+     <!-- 一般按鈕 -->
     <button id="text" class="button">點擊我</button>
 </body>
 </html>
