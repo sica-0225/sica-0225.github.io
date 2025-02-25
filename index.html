@@ -158,15 +158,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
          width: 100%;
      }
 
-     /* 響應式設計 */
+              /* 不同位置的按鈕 */
+     .button-top {
+     position: fixed;
+     top: 20px;
+     right: 20px;
+     }
+     
+          
+     /* 響應式調整 */
      @media (max-width: 768px) {
-         .hero h1 {
-             font-size: 2rem;
-         }
-
-         .hero p {
-             font-size: 1rem;
-         }
+     .button {
+         /* 手機版調整 */
+         position: fixed;
+         bottom: 20px;
+         right: 20px;
+         padding: 0.6rem 1.2rem;
+     }
      }
 
 </style>
