@@ -29,11 +29,6 @@ border-radius: 5px;
 transition: all 0.3s ease;
 box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 
-/* 置中定位 */
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
 }
 
 
@@ -161,7 +156,13 @@ transform: translate(-50%, -50%);
          bottom: 0;
          width: 100%;
      }
-
+         
+.button-container {
+display: flex;
+gap: 1rem;
+justify-content: center;
+margin-top: 1rem;
+}
 
 
 
@@ -181,8 +182,9 @@ transform: translate(-50%, -50%);
  <!-- 主要內容區 -->
  <section class="hero">
      <div class="hero-content">
-         <h1>Welcome to my Website</h1>
+         <h1>Welcome to My Website</h1>
          <p>I'm trying to use this website to tracking and learning with GA4.</p>
+          <div class="button-container">
          <a href="https://news.google.com/home?hl=zh-TW&gl=TW&ceid=TW:zh-Hant" id="news" class="btn">News</a>
           <!-- 一般按鈕 -->
          <button id="text" class="button">click me</button>
@@ -191,7 +193,7 @@ transform: translate(-50%, -50%);
 
  <!-- 頁尾 -->
  <footer>
-     <p>&copy; 2024 簡約風格網頁. All rights reserved.</p>
+     <p>&copy; 2025 簡約風格網頁. All rights reserved.</p>
  </footer>
 
     <!-- Google Tag Manager (noscript) -->
