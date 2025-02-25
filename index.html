@@ -14,25 +14,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
     <style>
  .button {
- /* 基本樣式 */
- background-color: #007bff;    /* 改用與網站主色調一致的藍色 */
- border: none;
- color: white;
- padding: 0.8rem 1.5rem;      /* 使用 rem 單位保持一致性 */
- text-align: center;
- text-decoration: none;
- display: inline-block;
- font-size: 1rem;             /* 使用 rem 單位 */
- margin: 0.25rem 0.125rem;    /* 使用 rem 單位 */
- cursor: pointer;
- border-radius: 5px;          /* 與網站其他元素統一圓角 */
- 
- /* 添加過渡效果 */
- transition: all 0.3s ease;
- 
- /* 可選：添加陰影效果 */
- box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+/* 基本樣式 */
+background-color: #007bff;    
+border: none;
+color: white;
+padding: 0.8rem 1.5rem;      
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 1rem;             
+margin: 0.25rem 0.125rem;    
+cursor: pointer;
+border-radius: 5px;          
+transition: all 0.3s ease;
+box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+/* 置中定位 */
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
 }
+
 
 .button:hover {
  background-color: #0056b3;   /* 改用較深的藍色 */
@@ -181,8 +184,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
          <h1>歡迎來到我的網站</h1>
          <p>這是一個簡約風格的網頁設計，注重清晰的版面配置和良好的用戶體驗。</p>
          <a href="#contact" class="btn">了解更多</a>
-               <!-- 一般按鈕 -->
-    <button id="text" class="button">點擊我</button>
+          <!-- 一般按鈕 -->
+         <button id="text" class="button">點擊我</button>
      </div>
  </section>
 
