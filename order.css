@@ -1,0 +1,135 @@
+/* order.css - 訂購頁面專屬樣式 */
+
+.order-page {
+padding-top: 80px; /* 避免內容被 header 擋住 */
+background-color: #fff;
+min-height: 100vh;
+/* 移除主樣式的滾動吸附 */
+overflow-y: auto;
+scroll-snap-type: none;
+}
+
+.container {
+display: flex;
+max-width: 1400px;
+margin: 0 auto;
+padding: 2rem;
+gap: 2rem;
+}
+
+/* 左側圖片 */
+.product-image {
+flex: 1;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.product-image img {
+max-width: 100%;
+height: auto;
+border-radius: 8px;
+}
+
+/* 右側表單 */
+.order-form {
+flex: 1;
+padding: 0 1rem;
+}
+
+.order-form h1 {
+font-size: 2rem;
+margin-bottom: 2rem;
+border-bottom: 1px solid #eee;
+padding-bottom: 1rem;
+}
+
+.form-group {
+margin-bottom: 2rem;
+}
+
+.form-group > label {
+display: block;
+font-size: 1.1rem;
+font-weight: 500;
+margin-bottom: 1rem;
+}
+
+.option-selector {
+display: flex;
+gap: 1rem;
+flex-wrap: wrap;
+}
+
+/* 隱藏原生 radio button */
+.option-selector input[type="radio"] {
+display: none;
+}
+
+/* 自訂選項樣式 */
+.option-selector label {
+cursor: pointer;
+padding: 1rem;
+border: 2px solid #e0e0e0;
+border-radius: 8px;
+transition: border-color 0.3s;
+}
+
+.option-selector input[type="radio"]:checked + label {
+border-color: #3e6ae1; /* 選中時的邊框顏色 */
+}
+
+/* 顏色選擇器樣式 */
+.color-swatch {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+padding: 0; /* 覆蓋通用 label 的 padding */
+}
+
+/* 文字選項樣式 */
+.option-box {
+width: 100%;
+text-align: center;
+}
+
+.price-summary {
+margin-top: 3rem;
+padding-top: 1.5rem;
+border-top: 1px solid #eee;
+}
+
+.price-summary h2 {
+font-size: 1.5rem;
+}
+
+.price-summary p {
+font-size: 0.9rem;
+color: #5c5e62;
+margin-top: 0.5rem;
+}
+
+.btn-submit {
+width: 100%;
+padding: 1rem;
+background-color: #3e6ae1;
+color: #fff;
+border: none;
+border-radius: 8px;
+font-size: 1.1rem;
+font-weight: 500;
+cursor: pointer;
+margin-top: 1.5rem;
+transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+background-color: #3457b2;
+}
+
+/* 響應式設計：在小螢幕上堆疊 */
+@media (max-width: 900px) {
+.container {
+    flex-direction: column;
+}
+}
