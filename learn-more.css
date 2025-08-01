@@ -1,0 +1,104 @@
+/* learn-more.css - 了解更多頁面專屬樣式 */
+
+.details-page {
+/* 移除主樣式的滾動吸附 */
+overflow-y: auto;
+scroll-snap-type: none;
+height: auto;
+}
+
+/* 移除 section 的固定高度 */
+.details-page section {
+height: auto;
+padding: 4rem 2rem;
+}
+
+/* 英雄區塊 */
+.hero-details {
+height: 70vh;
+width: 100%;
+background-size: cover;
+background-position: center;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+color: #fff;
+padding-top: 80px; /* 避免被 header 擋住 */
+}
+
+.hero-content h1 {
+font-size: 3rem;
+font-weight: 600;
+}
+
+.hero-content p {
+font-size: 1.2rem;
+margin-top: 1rem;
+}
+
+/* 通用 Section 樣式 */
+.features, .specifications, .cta-footer {
+max-width: 900px;
+margin: 0 auto;
+text-align: center;
+}
+
+.features h2, .specifications h2, .cta-footer h2 {
+font-size: 2rem;
+margin-bottom: 2rem;
+}
+
+/* 特色網格 */
+.features-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 2rem;
+text-align: left;
+}
+
+.feature-item {
+padding: 1.5rem;
+background-color: #f9f9f9;
+border-radius: 8px;
+}
+
+.feature-item h3 {
+margin-bottom: 0.5rem;
+}
+
+/* 規格列表 */
+.specifications ul {
+list-style: none;
+padding: 0;
+}
+
+.specifications li {
+display: flex;
+justify-content: space-between;
+padding: 1rem 0;
+border-bottom: 1px solid #eee;
+font-size: 1.1rem;
+}
+
+.specifications li span {
+color: #5c5e62;
+}
+
+/* 結尾行動呼籲 */
+.cta-footer {
+background-color: #f4f4f4;
+max-width: 100%;
+}
+
+.cta-footer .btn-primary {
+padding: 12px 60px; /* 讓按鈕更大更醒目 */
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+.features-grid {
+    grid-template-columns: 1fr; /* 在小螢幕上變為單欄 */
+}
+}
