@@ -113,6 +113,15 @@ font-size: 1.2rem;
 font-weight: bold;
 }
 
+nav {
+display: none; /* 在小螢幕上預設隱藏 */
+}
+
+@media (min-width: 1200px) {
+nav {
+    display: block; /* 在大螢幕上顯示 */
+}
 nav a {
-margin: 0 5px;
+    margin: 0 5px;
+}
 }
