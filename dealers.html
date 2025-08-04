@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>經銷商據點</title>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M3PJB5T6');</script>
+<!-- End Google Tag Manager -->
+
+
+<style>
+    body { font-family: sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
+    .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h1 { text-align: center; color: #333; }
+    .dealer-list { list-style: none; padding: 0; }
+    .dealer-card { border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+    .dealer-info h2 { margin: 0 0 5px 0; color: #555; }
+    .dealer-info p { margin: 0; color: #777; }
+    .btn-test-drive { background-color: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-size: 16px; }
+    .btn-test-drive:hover { background-color: #0056b3; }
+</style>
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3PJB5T6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> <!-- 請換成您的GTM ID -->
+<!-- End Google Tag Manager (noscript) -->
+
+<div class="container">
+    <h1>經銷商據點</h1>
+    <div class="dealer-list">
+        <div class="dealer-card">
+            <div class="dealer-info">
+                <h2>台北信義店</h2>
+                <p>台北市信義區市府路1號</p>
+            </div>
+            <button class="btn-test-drive" data-dealer-id="TP01" data-dealer-name="台北信義店">預約試乘</button>
+        </div>
+        <div class="dealer-card">
+            <div class="dealer-info">
+                <h2>新竹科學園區店</h2>
+                <p>新竹市東區工業東二路1號</p>
+            </div>
+            <button class="btn-test-drive" data-dealer-id="HS01" data-dealer-name="新竹科學園區店">預約試乘</button>
+        </div>
+        <div class="dealer-card">
+            <div class="dealer-info">
+                <h2>台中七期店</h2>
+                <p>台中市西屯區市政路1號</p>
+            </div>
+            <button class="btn-test-drive" data-dealer-id="TC01" data-dealer-name="台中七期店">預約試乘</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 確保 dataLayer 已被初始化
+    window.dataLayer = window.dataLayer || [];
+
+    // 選取所有「預約試乘」按鈕
+    const testDriveButtons = document.querySelectorAll('.btn-test-drive');
+
+    // 為每個按鈕加上點擊事件監聽器
+    testDriveButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            // 從按鈕的 data-* 屬性中獲取經銷商資訊
+            const dealerId = event.currentTarget.dataset.dealerId;
+            const dealerName = event.currentTarget.dataset.dealerName;
+
+            // 將結構化資料推送到 dataLayer
+            window.dataLayer.push({
+                'event': 'book_test_drive', // 這是我們在GTM中要用的「自訂事件」名稱
+                'dealer_id': dealerId,      // 經銷商ID
+                'dealer_name': dealerName   // 經銷商名稱
+            });
+
+            // (可選) 顯示一個提示，方便測試
+            alert('您已預約 ' + dealerName + ' 的試乘！');
+        });
+    });
+</script>
+
+</body>
+</html>
