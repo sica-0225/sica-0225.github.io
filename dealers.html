@@ -10,19 +10,32 @@
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-M3PJB5T6');</script>
+})(window,document,'script','dataLayer','GTM-M3PJB5T6');</script> <!-- 請確認這是您的GTM ID -->
 <!-- End Google Tag Manager -->
 
+<!-- Leaflet.js 的 CSS 和 JS，建立地圖所需 -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <style>
-    body { font-family: sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
-    .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-    h1 { text-align: center; color: #333; }
-    .dealer-list { list-style: none; padding: 0; }
-    .dealer-card { border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
-    .dealer-info h2 { margin: 0 0 5px 0; color: #555; }
-    .dealer-info p { margin: 0; color: #777; }
-    .btn-test-drive { background-color: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-size: 16px; }
+    html, body { height: 100%; margin: 0; padding: 0; font-family: sans-serif; }
+    .page-wrapper { display: flex; height: 100vh; }
+    #panel { width: 350px; height: 100%; overflow-y: auto; box-shadow: 2px 0 5px rgba(0,0,0,0.1); z-index: 1000; background: #fff; }
+    #map { flex-grow: 1; height: 100%; }
+    .panel-header { padding: 15px; background-color: #f7f7f7; border-bottom: 1px solid #ddd; }
+    .panel-header h1 { margin: 0; font-size: 20px; }
+    .dealer-list { list-style: none; padding: 0; margin: 0; }
+    .dealer-list-item { padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; }
+    .dealer-list-item:hover { background-color: #f0f0f0; }
+    .dealer-list-item h2 { margin: 0 0 5px; font-size: 16px; }
+    .dealer-list-item p { margin: 0; font-size: 14px; color: #666; }
+    
+    /* 點擊後顯示的詳細資訊樣式 */
+    .dealer-info-card { padding: 20px; }
+    .dealer-info-card h2 { margin: 0 0 15px; font-size: 22px; color: #333; }
+    .dealer-info-card p { margin: 0 0 10px; font-size: 15px; color: #555; line-height: 1.6; }
+    .back-to-list { color: #007bff; cursor: pointer; margin-bottom: 20px; display: inline-block; }
+    .btn-test-drive { display: block; width: 100%; background-color: #007bff; color: white; border: none; padding: 15px; border-radius: 5px; cursor: pointer; font-size: 18px; text-align: center; text-decoration: none; box-sizing: border-box; }
     .btn-test-drive:hover { background-color: #0056b3; }
 </style>
 </head>
@@ -30,61 +43,119 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3PJB5T6"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> <!-- 請換成您的GTM ID -->
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<div class="container">
-    <h1>經銷商據點</h1>
-    <div class="dealer-list">
-        <div class="dealer-card">
-            <div class="dealer-info">
-                <h2>台北信義店</h2>
-                <p>台北市信義區市府路1號</p>
-            </div>
-            <button class="btn-test-drive" data-dealer-id="TP01" data-dealer-name="台北信義店">預約試乘</button>
-        </div>
-        <div class="dealer-card">
-            <div class="dealer-info">
-                <h2>新竹科學園區店</h2>
-                <p>新竹市東區工業東二路1號</p>
-            </div>
-            <button class="btn-test-drive" data-dealer-id="HS01" data-dealer-name="新竹科學園區店">預約試乘</button>
-        </div>
-        <div class="dealer-card">
-            <div class="dealer-info">
-                <h2>台中七期店</h2>
-                <p>台中市西屯區市政路1號</p>
-            </div>
-            <button class="btn-test-drive" data-dealer-id="TC01" data-dealer-name="台中七期店">預約試乘</button>
-        </div>
+<div class="page-wrapper">
+    <div id="panel">
+        <!-- 這裡的內容會由 JavaScript 動態生成 -->
     </div>
+    <div id="map"></div>
 </div>
 
 <script>
-    // 確保 dataLayer 已被初始化
-    window.dataLayer = window.dataLayer || [];
+    // 1. 經銷商資料庫
+    const dealers = [
+        { id: 'TP01', name: '台北九和汽車-南港/忠孝服務廠', address: '台北市南港區忠孝東路六段297號', latlng: [25.049, 121.605] },
+        { id: 'HS01', name: '新竹科學園區店', address: '新竹市東區工業東二路1號', latlng: [24.774, 120.995] },
+        { id: 'TC01', name: '台中七期店', address: '台中市西屯區市政路1號', latlng: [24.163, 120.640] }
+    ];
 
-    // 選取所有「預約試乘」按鈕
-    const testDriveButtons = document.querySelectorAll('.btn-test-drive');
+    // 2. 初始化地圖
+    const map = L.map('map').setView([24.8, 121.1], 8); // 初始視圖設定在台灣中心附近
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-    // 為每個按鈕加上點擊事件監聽器
-    testDriveButtons.forEach(button => {
-        button.addEventListener('click', function(event) {
-            // 從按鈕的 data-* 屬性中獲取經銷商資訊
-            const dealerId = event.currentTarget.dataset.dealerId;
-            const dealerName = event.currentTarget.dataset.dealerName;
+    const panel = document.getElementById('panel');
+    let markers = {}; // 用來存放地圖上的標記
 
-            // 將結構化資料推送到 dataLayer
+    // 3. 顯示經銷商列表 (初始畫面)
+    function showDealerList() {
+        let listHtml = `
+            <div class="panel-header"><h1>經銷商據點</h1></div>
+            <ul class="dealer-list">`;
+        
+        dealers.forEach(dealer => {
+            listHtml += `
+                <li class="dealer-list-item" data-id="${dealer.id}">
+                    <h2>${dealer.name}</h2>
+                    <p>${dealer.address}</p>
+                </li>`;
+        });
+        listHtml += '</ul>';
+        panel.innerHTML = listHtml;
+    }
+
+    // 4. 顯示單一經銷商的詳細資訊
+    function showDealerInfo(dealerId) {
+        const dealer = dealers.find(d => d.id === dealerId);
+        if (!dealer) return;
+
+        const infoHtml = `
+            <div class="dealer-info-card">
+                <p class="back-to-list">&lt; 返回列表</p>
+                <h2>${dealer.name}</h2>
+                <p><strong>地址：</strong> ${dealer.address}</p>
+                <p><strong>電話：</strong> 02-2785-0571</p>
+                <p><strong>營業時間：</strong> 週一至週六 07:30 - 17:30</p>
+                <button class="btn-test-drive" data-dealer-id="${dealer.id}" data-dealer-name="${dealer.name}">預約試駕</button>
+            </div>`;
+        panel.innerHTML = infoHtml;
+
+        // 將地圖視圖移動到該經銷商並放大
+        map.setView(dealer.latlng, 15);
+        // 讓對應的標記跳動一下 (可選)
+        if (markers[dealer.id]) {
+            markers[dealer.id].bounce(1);
+        }
+    }
+
+    // 5. 建立地圖標記
+    dealers.forEach(dealer => {
+        const marker = L.marker(dealer.latlng).addTo(map);
+        marker.on('click', () => {
+            showDealerInfo(dealer.id);
+        });
+        markers[dealer.id] = marker; // 將標記存起來
+    });
+
+    // 6. 設定事件監聽 (使用事件委派，效能更好)
+    panel.addEventListener('click', function(event) {
+        // 點擊列表項目
+        const listItem = event.target.closest('.dealer-list-item');
+        if (listItem) {
+            showDealerInfo(listItem.dataset.id);
+            return;
+        }
+
+        // 點擊返回按鈕
+        if (event.target.classList.contains('back-to-list')) {
+            showDealerList();
+            map.setView([24.8, 121.1], 8); // 回到初始視圖
+            return;
+        }
+
+        // 點擊「預約試駕」按鈕，觸發 dataLayer
+        const testDriveButton = event.target.closest('.btn-test-drive');
+        if (testDriveButton) {
+            const dealerId = testDriveButton.dataset.dealerId;
+            const dealerName = testDriveButton.dataset.dealerName;
+
+            // 推送資料到 dataLayer
+            window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
-                'event': 'book_test_drive', // 這是我們在GTM中要用的「自訂事件」名稱
-                'dealer_id': dealerId,      // 經銷商ID
-                'dealer_name': dealerName   // 經銷商名稱
+                'event': 'book_test_drive',
+                'dealer_id': dealerId,
+                'dealer_name': dealerName
             });
 
-            // (可選) 顯示一個提示，方便測試
-            alert('您已預約 ' + dealerName + ' 的試乘！');
-        });
+            alert('預約 ' + dealerName + ' 的事件已記錄！');
+        }
     });
+
+    // 初始載入時顯示列表
+    showDealerList();
 </script>
 
 </body>
