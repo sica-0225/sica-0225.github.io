@@ -1,0 +1,118 @@
+/* dealers.css - 經銷商據點頁面專屬樣式 */
+
+/* 1. 主要容器設定 */
+.page-wrapper {
+display: flex;
+/* 關鍵：計算高度，使其填滿頁首 (80px) 以下的剩餘可視空間 */
+height: calc(100vh - 80px); 
+}
+
+/* 2. 左側面板樣式 */
+#panel {
+width: 380px; /* 可稍微加寬以容納更多資訊 */
+height: 100%; /* 填滿 .page-wrapper 的高度 */
+overflow-y: auto;
+box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+z-index: 1; /* z-index 不需太高 */
+background: #fff;
+display: flex;
+flex-direction: column;
+}
+
+/* 3. 右側地圖樣式 */
+#map {
+flex-grow: 1;
+height: 100%; /* 填滿 .page-wrapper 的高度 */
+}
+
+/* 4. 面板內部樣式 (微調以符合新風格) */
+.panel-header {
+padding: 20px;
+background-color: #f9f9f9;
+border-bottom: 1px solid #ddd;
+flex-shrink: 0; /* 防止標頭在內容過多時被壓縮 */
+}
+
+.panel-header h1 {
+margin: 0;
+font-size: 22px;
+}
+
+.dealer-list {
+list-style: none;
+padding: 0;
+margin: 0;
+flex-grow: 1; /* 讓列表填滿剩餘空間 */
+overflow-y: auto; /* 列表本身可以滾動 */
+}
+
+.dealer-list-item {
+padding: 15px 20px;
+border-bottom: 1px solid #eee;
+cursor: pointer;
+transition: background-color 0.2s ease;
+}
+
+.dealer-list-item:hover {
+background-color: #f0f8ff; /* 使用淡藍色作為 hover 效果 */
+}
+
+.dealer-list-item h2 {
+margin: 0 0 5px;
+font-size: 16px;
+color: #003478; /* 使用品牌藍色 */
+}
+
+.dealer-list-item p {
+margin: 0;
+font-size: 14px;
+color: #666;
+}
+
+/* 5. 詳細資訊卡片樣式 */
+.dealer-info-card {
+padding: 25px;
+}
+
+.dealer-info-card h2 {
+margin: 0 0 15px;
+font-size: 22px;
+color: #333;
+}
+
+.dealer-info-card p {
+margin: 0 0 10px;
+font-size: 15px;
+color: #555;
+line-height: 1.6;
+}
+
+.back-to-list {
+color: #003478; /* 使用品牌藍色 */
+cursor: pointer;
+margin-bottom: 20px;
+display: inline-block;
+font-weight: 500;
+}
+
+/* 6. 按鈕樣式 (與 style.css 的 .btn-primary 保持一致) */
+.btn-test-drive {
+display: block;
+width: 100%;
+background-color: #003478; /* 使用品牌藍色 */
+color: white;
+border: none;
+padding: 15px;
+border-radius: 5px;
+cursor: pointer;
+font-size: 18px;
+text-align: center;
+text-decoration: none;
+box-sizing: border-box;
+margin-top: 10px;
+transition: background-color 0.3s ease;
+}
+
+.btn-test-drive:hover {
+background-color: #002a60; /* 加深的藍色 */
+}
