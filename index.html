@@ -14,7 +14,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 <link rel="stylesheet" href="style.css">
-<!-- === 引用新的 mega-menu.css === -->
 <link rel="stylesheet" href="mega-menu.css">
 </head>
 <body>
@@ -24,15 +23,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<!-- === 修改後的 Header 結構 === -->
 <header>
     <a href="index.html" class="logo">Ford</a>
     <nav>
         <div class="nav-item-has-dropdown">
-            <!-- 這個按鈕是觸發器 -->
             <a href="#" id="vehicle-showcase-trigger">車款展示</a>
             
-            <!-- Mega Menu 面板 -->
             <div id="vehicle-mega-menu" class="mega-menu-panel">
                 <div class="mega-menu-body">
                     <aside class="vehicle-sidebar">
@@ -47,7 +43,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <div class="vehicle-content">
                         <div class="content-header">
                             <h2 id="category-title">全車系</h2>
-                            <a href="vehicles.html" class="breadcrumb">探索 全車系 ></a>
+                            <a href="vehicles.html" class="breadcrumb">探索 Ford 全車系 ></a>
                         </div>
                         <div id="vehicle-grid" class="vehicle-grid">
                             <!-- 車款卡片將由 JavaScript 動態生成 -->
@@ -57,7 +53,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
         <a href="#">車主服務</a>
-        <a href="#">探索</a>
+        <a href="#">探索福特</a>
         <a href="dealers.html">服務據點</a>
     </nav>
     <div class="header-actions">
@@ -66,20 +62,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </header>
 
 <main>
-    <!-- Hero Banner 內容可以保持簡單 -->
-    <section id="hero-section" style="background-image: url('https://www.ford.com.tw/content/dam/Ford/website-assets/ap/tw/nameplate/kuga/2024/24-75/models/vignale/ford-kuga-vignale-front-34.jpg/jcr:content/renditions/cq5dam.web.1440.1440.jpeg');">
-        <div class="content" style="background-color: rgba(0,0,0,0.3); padding: 2rem; border-radius: 10px;">
-            <h1 style="color: white;">Model S</h1>
-            <p style="color: #f0f0f0;">見證動能與美學的完美結合</p>
-            <div class="buttons">
-                <a href="#" class="btn-primary">了解更多</a>
-                <a href="#" class="btn-secondary" style="background-color: rgba(255,255,255,0.8); color: #000;">預約試駕</a>
+    <!-- === 修改此處的背景圖片 === -->
+    <section id="hero-section" style="background-image: url('car.jpg');">
+        <div class="content" style="background-color: rgba(0,0,0,0.2); padding: 2rem 4rem; border-radius: 10px; text-align: left;">
+            <h1 style="color: white; font-size: 3.5rem;">極速動能 馳騁未來</h1>
+            <p style="color: #f0f0f0; font-size: 1.2rem;">體驗無與倫比的駕馭樂趣與頂尖工藝</p>
+            <div class="buttons" style="justify-content: flex-start; margin-top: 2rem;">
+                <a href="#" class="btn-primary">探索車款規格</a>
+                <a href="#" class="btn-secondary" style="background-color: rgba(255,255,255,0.9); color: #000;">預約試駕</a>
             </div>
         </div>
     </section>
 </main>
 
-<!-- === JavaScript 互動邏輯 === -->
+<!-- JavaScript 程式碼維持不變 -->
 <script>
     // 1. 車款資料庫
     const vehicles = [
@@ -118,8 +114,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     // 4. 控制 Mega Menu 的開關
     trigger.addEventListener('click', (event) => {
-        event.preventDefault(); // 防止連結跳轉
-        event.stopPropagation(); // 防止點擊事件冒泡到 document
+        event.preventDefault();
+        event.stopPropagation();
         megaMenu.classList.toggle('visible');
     });
 
