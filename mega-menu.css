@@ -1,0 +1,171 @@
+/* mega-menu.css - 大型下拉選單面板樣式 */
+
+/* 1. 導覽列項目容器設定 */
+.nav-item-has-dropdown {
+position: relative; /* 關鍵：讓下拉面板可以相對於此定位 */
+}
+
+/* 2. Mega Menu 面板本身 */
+.mega-menu-panel {
+position: absolute;
+top: 100%; /* 定位在父元素的正下方 */
+left: 0;
+width: 100%;
+background-color: #ffffff;
+box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+z-index: 1900; /* 確保在 header 之上，但在其他 modal 之下 */
+
+/* 預設隱藏，並準備動畫效果 */
+opacity: 0;
+visibility: hidden;
+transform: translateY(-10px);
+transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+
+padding: 2rem;
+border-bottom-left-radius: 10px;
+border-bottom-right-radius: 10px;
+}
+
+/* 當面板可見時的樣式 */
+.mega-menu-panel.visible {
+opacity: 1;
+visibility: visible;
+transform: translateY(0);
+}
+
+/* 3. 面板內部佈局 (與之前 modal 類似) */
+.mega-menu-body {
+display: flex;
+gap: 2rem;
+max-width: 1400px;
+margin: 0 auto; /* 讓內容在面板內置中 */
+max-height: calc(100vh - 120px); /* 最大高度，避免超出螢幕 */
+}
+
+.vehicle-sidebar {
+width: 220px;
+flex-shrink: 0;
+border-right: 1px solid #eee;
+padding-right: 2rem;
+}
+
+.vehicle-sidebar .filter-list {
+list-style: none;
+padding: 0;
+margin: 0;
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.vehicle-sidebar .filter-btn {
+width: 100%;
+padding: 12px 20px;
+border: none;
+background-color: #f5f5f5;
+color: #333;
+font-size: 1rem;
+font-weight: 500;
+text-align: left;
+cursor: pointer;
+border-radius: 8px;
+transition: all 0.3s ease;
+}
+
+.vehicle-sidebar .filter-btn:hover {
+background-color: #e0e0e0;
+}
+
+.vehicle-sidebar .filter-btn.active {
+background-color: #003478;
+color: #ffffff;
+}
+
+.vehicle-content {
+flex-grow: 1;
+display: flex;
+flex-direction: column;
+}
+
+.vehicle-content .content-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-bottom: 1px solid #ddd;
+padding-bottom: 1rem;
+margin-bottom: 1rem;
+}
+
+.vehicle-content #category-title {
+font-size: 1.8rem;
+margin: 0;
+}
+
+.vehicle-content .breadcrumb {
+color: #003478;
+font-weight: 500;
+text-decoration: none;
+}
+
+.vehicle-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+gap: 1.5rem;
+overflow-y: auto;
+padding: 0.5rem;
+}
+
+.vehicle-card {
+text-align: center;
+background-color: #fff;
+padding-bottom: 1.5rem;
+}
+
+.vehicle-card img {
+width: 100%;
+height: auto;
+margin-bottom: 1rem;
+}
+
+.vehicle-card h3 {
+font-size: 1.1rem;
+color: #171a20;
+margin-bottom: 1rem;
+min-height: 40px;
+}
+
+.vehicle-card .card-buttons {
+display: flex;
+flex-direction: column;
+gap: 10px;
+padding: 0 1rem;
+}
+
+.vehicle-card .btn-learn-more,
+.vehicle-card .btn-test-drive {
+display: block;
+width: 100%;
+padding: 10px;
+border-radius: 50px;
+font-weight: 600;
+text-decoration: none;
+transition: all 0.3s ease;
+}
+
+.vehicle-card .btn-learn-more {
+border: 2px solid #003478;
+color: #003478;
+background-color: #fff;
+}
+.vehicle-card .btn-learn-more:hover {
+background-color: #f0f8ff;
+}
+
+.vehicle-card .btn-test-drive {
+border: 2px solid #003478;
+background-color: #003478;
+color: #fff;
+}
+.vehicle-card .btn-test-drive:hover {
+background-color: #002a60;
+}
