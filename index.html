@@ -14,10 +14,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 <link rel="stylesheet" href="style.css">
-<!-- 移除 hero.css，因為我們不再需要那個元件 -->
-<!-- <link rel="stylesheet" href="hero.css"> -->
-<!-- === 引用新的 modal.css === -->
-<link rel="stylesheet" href="modal.css">
+<!-- === 引用新的 mega-menu.css === -->
+<link rel="stylesheet" href="mega-menu.css">
 </head>
 <body>
 
@@ -26,137 +24,124 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<!-- === 修改後的 Header 結構 === -->
 <header>
-    <a href="index.html" class="logo">WEBSITE</a>
+    <a href="index.html" class="logo">Ford</a>
     <nav>
-        <!-- 按鈕觸發 modal，所以這裡可以簡化 -->
-        <a href="#hero-section">探索車款</a>
-        <a href="dealers.html">經銷商據點</a>
+        <div class="nav-item-has-dropdown">
+            <!-- 這個按鈕是觸發器 -->
+            <a href="#" id="vehicle-showcase-trigger">車款展示</a>
+            
+            <!-- Mega Menu 面板 -->
+            <div id="vehicle-mega-menu" class="mega-menu-panel">
+                <div class="mega-menu-body">
+                    <aside class="vehicle-sidebar">
+                        <ul class="filter-list">
+                            <li><button class="filter-btn active" data-filter="all" data-title="全車系">全車系</button></li>
+                            <li><button class="filter-btn" data-filter="suv" data-title="休旅車">休旅車</button></li>
+                            <li><button class="filter-btn" data-filter="sedan" data-title="轎車">轎車</button></li>
+                            <li><button class="filter-btn" data-filter="ev" data-title="電動車">電動車</button></li>
+                            <li><button class="filter-btn" data-filter="performance" data-title="性能車">性能車</button></li>
+                        </ul>
+                    </aside>
+                    <div class="vehicle-content">
+                        <div class="content-header">
+                            <h2 id="category-title">全車系</h2>
+                            <a href="vehicles.html" class="breadcrumb">探索 Ford 全車系 ></a>
+                        </div>
+                        <div id="vehicle-grid" class="vehicle-grid">
+                            <!-- 車款卡片將由 JavaScript 動態生成 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#">車主服務</a>
+        <a href="#">探索福特</a>
+        <a href="dealers.html">服務據點</a>
     </nav>
     <div class="header-actions">
-        <a href="order.html" class="btn-secondary">線上訂購</a>
+        <!-- 這裡可以放漢堡選單按鈕或聯絡我們 -->
     </div>
 </header>
 
 <main>
-    <!-- 我們沿用一個簡單的 Hero Banner 作為背景 -->
-    <section id="hero-section" style="background-image: url('https://via.placeholder.com/1920x1080/222/fff?text=The+Future+is+Here');">
-        <div class="content">
-            <h1>探索您的下一部座駕</h1>
-            <p>點擊下方按鈕，瀏覽我們完整的車系陣容</p>
+    <!-- Hero Banner 內容可以保持簡單 -->
+    <section id="hero-section" style="background-image: url('https://www.ford.com.tw/content/dam/Ford/website-assets/ap/tw/nameplate/kuga/2024/24-75/models/vignale/ford-kuga-vignale-front-34.jpg/jcr:content/renditions/cq5dam.web.1440.1440.jpeg');">
+        <div class="content" style="background-color: rgba(0,0,0,0.3); padding: 2rem; border-radius: 10px;">
+            <h1 style="color: white;">The All-New Ford Kuga</h1>
+            <p style="color: #f0f0f0;">見證動能與美學的完美結合</p>
             <div class="buttons">
-                <!-- === 這個按鈕將用來打開彈出視窗 === -->
-                <button id="open-modal-btn" class="btn-primary">探索全車系</button>
-                <a href="dealers.html" class="btn-secondary">尋找經銷商</a>
+                <a href="#" class="btn-primary">了解更多</a>
+                <a href="#" class="btn-secondary" style="background-color: rgba(255,255,255,0.8); color: #000;">預約試駕</a>
             </div>
         </div>
-    </section>
-    
-    <section style="padding: 4rem 2rem; text-align: center;">
-        <h2>品牌承諾</h2>
-        <p>我們致力於創新、安全與永續發展。</p>
     </section>
 </main>
-
-<!-- === 彈出視窗的 HTML 結構 (放在 body 結尾) === -->
-<div id="vehicle-modal" class="modal-overlay">
-    <div class="modal-content">
-        <button id="modal-close-btn" class="modal-close-btn">&times;</button>
-        <div class="modal-body">
-            <aside class="vehicle-sidebar">
-                <ul class="filter-list">
-                    <li><button class="filter-btn active" data-filter="all" data-title="全車系">全車系</button></li>
-                    <li><button class="filter-btn" data-filter="suv" data-title="休旅車">休旅車</button></li>
-                    <li><button class="filter-btn" data-filter="sedan" data-title="轎車">轎車</button></li>
-                    <li><button class="filter-btn" data-filter="ev" data-title="電動車">電動車</button></li>
-                </ul>
-            </aside>
-            <div class="vehicle-content">
-                <h2 id="category-title">全車系</h2>
-                <div id="vehicle-grid" class="vehicle-grid">
-                    <!-- 車款卡片將由 JavaScript 動態生成於此 -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- === JavaScript 互動邏輯 === -->
 <script>
     // 1. 車款資料庫
     const vehicles = [
-        { name: 'Kuga', category: 'suv', image: 'https://via.placeholder.com/400x300/555/fff?text=Kuga', link: 'learn-more.html?model=kuga' },
-        { name: 'Focus', category: 'sedan', image: 'https://via.placeholder.com/400x300/666/fff?text=Focus', link: 'learn-more.html?model=focus' },
-        { name: 'Mustang Mach-E', category: 'ev', image: 'https://via.placeholder.com/400x300/777/fff?text=Mach-E', link: 'learn-more.html?model=mach-e' },
-        { name: 'Explorer', category: 'suv', image: 'https://via.placeholder.com/400x300/888/fff?text=Explorer', link: 'learn-more.html?model=explorer' },
-        { name: 'Mondeo', category: 'sedan', image: 'https://via.placeholder.com/400x300/999/fff?text=Mondeo', link: 'learn-more.html?model=mondeo' },
-        { name: 'Ranger', category: 'suv', image: 'https://via.placeholder.com/400x300/AAA/fff?text=Ranger', link: 'learn-more.html?model=ranger' }
+        { name: 'The All-New Ford Kuga', category: 'suv', image: 'https://www.ford.com.tw/content/dam/Ford/website-assets/ap/tw/nameplate/kuga/2024/24-75/models/vignale/ford-kuga-vignale-front-34.jpg/jcr:content/renditions/cq5dam.web.320.320.jpeg', link: '#' },
+        { name: 'The All-New Ford Tourneo Connect 旅玩家', category: 'suv', image: 'https://www.ford.com.tw/content/dam/Ford/website-assets/ap/tw/nameplate/tourneo-connect/2024/models/sport/ford-tourneo-connect-sport-front-34.jpg/jcr:content/renditions/cq5dam.web.320.320.jpeg', link: '#' },
+        { name: 'The All-Electric Mustang Mach-E', category: 'ev', image: 'https://www.ford.com.tw/content/dam/Ford/website-assets/ap/tw/nameplate/mustang-mach-e/2023/models/gt/ford-mustang-mach-e-gt-front-34.jpg/jcr:content/renditions/cq5dam.web.320.320.jpeg', link: '#' },
+        { name: 'Ford Focus', category: 'sedan', image: 'https://www.ford.com.tw/content/dam/Ford/website-assets/ap/tw/nameplate/focus/2023/models/hatchback-st-line-vignale/ford-focus-hatchback-st-line-vignale-front-34.jpg/jcr:content/renditions/cq5dam.web.320.320.jpeg', link: '#' },
+        { name: 'Ford Mustang', category: 'performance', image: 'https://www.ford.com.tw/content/dam/Ford/website-assets/ap/tw/nameplate/mustang/2024/models/dark-horse/ford-mustang-dark-horse-front-34.jpg/jcr:content/renditions/cq5dam.web.320.320.jpeg', link: '#' }
     ];
 
     // 2. 獲取 DOM 元素
-    const openModalBtn = document.getElementById('open-modal-btn');
-    const modalOverlay = document.getElementById('vehicle-modal');
-    const closeModalBtn = document.getElementById('modal-close-btn');
-    
+    const trigger = document.getElementById('vehicle-showcase-trigger');
+    const megaMenu = document.getElementById('vehicle-mega-menu');
     const grid = document.getElementById('vehicle-grid');
-    const filterList = document.querySelector('.filter-list');
-    const categoryTitle = document.getElementById('category-title');
+    const filterList = megaMenu.querySelector('.filter-list');
+    const categoryTitle = megaMenu.querySelector('#category-title');
 
     // 3. 渲染車款卡片的函式
     function renderVehicles(filter) {
         grid.innerHTML = '';
         const filteredVehicles = vehicles.filter(v => filter === 'all' || v.category === filter);
-
-        if (filteredVehicles.length === 0) {
-            grid.innerHTML = '<p>此分類目前沒有車款。</p>';
-            return;
-        }
-
         filteredVehicles.forEach(vehicle => {
             const card = document.createElement('div');
             card.className = 'vehicle-card';
             card.innerHTML = `
                 <img src="${vehicle.image}" alt="${vehicle.name}">
                 <h3>${vehicle.name}</h3>
-                <a href="${vehicle.link}" class="btn-learn-more">了解更多</a>
+                <div class="card-buttons">
+                    <a href="${vehicle.link}" class="btn-learn-more">了解更多</a>
+                    <a href="#" class="btn-test-drive">預約試駕</a>
+                </div>
             `;
             grid.appendChild(card);
         });
     }
 
-    // 4. 控制 Modal 的開關
-    function openModal() {
-        modalOverlay.classList.add('visible');
-        // 每次打開時，都渲染一次，確保內容最新
-        renderVehicles(filterList.querySelector('.active').dataset.filter);
-    }
+    // 4. 控制 Mega Menu 的開關
+    trigger.addEventListener('click', (event) => {
+        event.preventDefault(); // 防止連結跳轉
+        event.stopPropagation(); // 防止點擊事件冒泡到 document
+        megaMenu.classList.toggle('visible');
+    });
 
-    function closeModal() {
-        modalOverlay.classList.remove('visible');
-    }
-
-    openModalBtn.addEventListener('click', openModal);
-    closeModalBtn.addEventListener('click', closeModal);
-    // 點擊背景遮罩也可以關閉視窗
-    modalOverlay.addEventListener('click', (event) => {
-        if (event.target === modalOverlay) {
-            closeModal();
+    // 5. 點擊選單外部時關閉選單
+    document.addEventListener('click', (event) => {
+        if (!megaMenu.contains(event.target) && megaMenu.classList.contains('visible')) {
+            megaMenu.classList.remove('visible');
         }
     });
 
-    // 5. 設定篩選按鈕的事件監聽
+    // 6. 設定篩選按鈕的事件監聽
     filterList.addEventListener('click', (event) => {
         if (event.target.tagName === 'BUTTON') {
             filterList.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-
-            const filterValue = event.target.dataset.filter;
-            const titleValue = event.target.dataset.title;
-            
-            categoryTitle.textContent = titleValue;
-            renderVehicles(filterValue);
+            categoryTitle.textContent = event.target.dataset.title;
+            renderVehicles(event.target.dataset.filter);
         }
     });
+
+    // 7. 初始載入時，渲染一次
+    renderVehicles('all');
 </script>
 
 </body>
