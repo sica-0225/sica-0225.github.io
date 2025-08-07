@@ -14,6 +14,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 <link rel="stylesheet" href="style.css">
+<!-- === 引用新的 hero.css === -->
+<link rel="stylesheet" href="hero.css">
 </head>
 <body>
 
@@ -22,68 +24,131 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<!-- 新的頁首結構 -->
 <header>
     <a href="index.html" class="logo">WEBSITE</a>
     <nav>
-        <a href="#section1">Model S</a>
-        <a href="#section2">Model 3</a>
-        <a href="#section3">Model X</a>
-        <a href="#section4">Model Y</a>
+        <!-- 導覽列可以指向新的 hero-section -->
+        <a href="#hero-section">探索車款</a>
         <a href="dealers.html">經銷商據點</a>
     </nav>
     <div class="header-actions">
-        <!-- 參考福特官網，可放置主要行動呼籲按鈕 -->
         <a href="order.html" class="btn-secondary">線上訂購</a>
     </div>
 </header>
 
 <main>
-    <!-- 所有區塊現在都在 main 裡面，形成一個長頁面 -->
-    <section id="section1" style="background-image: url('https://via.placeholder.com/1920x1080/333/fff?text=Model+S');">
-        <div class="content">
-            <h1>Model S</h1>
-            <p>體驗極致駕馭</p>
-            <div class="buttons">
-                <a href="order.html" class="btn-primary" data-gtm-event="button_click" data-gtm-model="model-s" data-gtm-action="order">立即訂購</a>
-                <a href="learn-more.html" class="btn-secondary" data-gtm-event="button_click" data-gtm-model="model-s" data-gtm-action="learn-more">了解更多</a>
+    <!-- === 新的 Hero Banner 與車款選擇器區塊 === -->
+    <section id="hero-section" class="hero-section">
+        <div class="container">
+            <!-- 車款選擇器 -->
+            <div class="model-selector">
+                <button class="tab active" data-model="model-s">Model S</button>
+                <button class="tab" data-model="model-3">Model 3</button>
+                <button class="tab" data-model="model-x">Model X</button>
+                <button class="tab" data-model="model-y">Model Y</button>
+            </div>
+
+            <!-- 車款內容顯示區 -->
+            <div class="model-display">
+                <div class="model-image-wrapper">
+                    <img id="model-image" src="https://via.placeholder.com/1200x800/333/fff?text=Model+S" alt="Model S">
+                </div>
+                <div class="model-info">
+                    <h1 id="model-name">Model S</h1>
+                    <p id="model-price" class="price">建議售價 NT$ 2,500,000 起</p>
+                    <div class="buttons">
+                        <a id="order-link" href="order.html" class="btn-primary">立即訂購</a>
+                        <a id="learn-more-link" href="learn-more.html" class="btn-secondary">了解更多</a>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
+    
+    <!-- 您可以在這裡新增其他內容區塊，例如品牌故事、最新消息等 -->
+    <section style="padding: 4rem 2rem; text-align: center;">
+        <h2>探索我們的品牌</h2>
+        <p>致力於提供最先進的駕駛體驗。</p>
     </section>
 
-    <section id="section2" style="background-image: url('https://via.placeholder.com/1920x1080/444/fff?text=Model+3');">
-        <div class="content">
-            <h1>Model 3</h1>
-            <p>為大眾設計的電動車</p>
-            <div class="buttons">
-                <a href="order.html" class="btn-primary" data-gtm-event="button_click" data-gtm-model="model-3" data-gtm-action="order">立即訂購</a>
-                <a href="learn-more.html" class="btn-secondary" data-gtm-event="button_click" data-gtm-model="model-3" data-gtm-action="learn-more">了解更多</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="section3" style="background-image: url('https://via.placeholder.com/1920x1080/555/fff?text=Model+X');">
-        <div class="content">
-            <h1>Model X</h1>
-            <p>最安全的 SUV</p>
-            <div class="buttons">
-                <a href="order.html" class="btn-primary" data-gtm-event="button_click" data-gtm-model="model-x" data-gtm-action="order">立即訂購</a>
-                <a href="learn-more.html" class="btn-secondary" data-gtm-event="button_click" data-gtm-model="model-x" data-gtm-action="learn-more">了解更多</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="section4" style="background-image: url('https://via.placeholder.com/1920x1080/666/fff?text=Model+Y');">
-        <div class="content">
-            <h1>Model Y</h1>
-            <p>空間與效能的完美結合</p>
-            <div class="buttons">
-                <a href="order.html" class="btn-primary" data-gtm-event="button_click" data-gtm-model="model-y" data-gtm-action="order">立即訂購</a>
-                <a href="learn-more.html" class="btn-secondary" data-gtm-event="button_click" data-gtm-model="model-y" data-gtm-action="learn-more">了解更多</a>
-            </div>
-        </div>
-    </section>
 </main>
+
+<!-- === 第三步：加入 JavaScript 互動邏輯 === -->
+<script>
+    // 1. 車款資料庫
+    const carData = {
+        'model-s': {
+            name: 'Model S',
+            price: '建議售價 NT$ 2,500,000 起',
+            image: 'https://via.placeholder.com/1200x800/333/fff?text=Model+S',
+            orderLink: 'order.html?model=s',
+            learnMoreLink: 'learn-more.html?model=s'
+        },
+        'model-3': {
+            name: 'Model 3',
+            price: '建議售價 NT$ 1,600,000 起',
+            image: 'https://via.placeholder.com/1200x800/444/fff?text=Model+3',
+            orderLink: 'order.html?model=3',
+            learnMoreLink: 'learn-more.html?model=3'
+        },
+        'model-x': {
+            name: 'Model X',
+            price: '建議售價 NT$ 2,800,000 起',
+            image: 'https://via.placeholder.com/1200x800/555/fff?text=Model+X',
+            orderLink: 'order.html?model=x',
+            learnMoreLink: 'learn-more.html?model=x'
+        },
+        'model-y': {
+            name: 'Model Y',
+            price: '建議售價 NT$ 1,800,000 起',
+            image: 'https://via.placeholder.com/1200x800/666/fff?text=Model+Y',
+            orderLink: 'order.html?model=y',
+            learnMoreLink: 'learn-more.html?model=y'
+        }
+    };
+
+    // 2. 獲取需要操作的 DOM 元素
+    const modelSelector = document.querySelector('.model-selector');
+    const modelImage = document.getElementById('model-image');
+    const modelName = document.getElementById('model-name');
+    const modelPrice = document.getElementById('model-price');
+    const orderLink = document.getElementById('order-link');
+    const learnMoreLink = document.getElementById('learn-more-link');
+
+    // 3. 事件監聽：當點擊選擇器中的任何一個按鈕時
+    modelSelector.addEventListener('click', function(event) {
+        // 確保點擊的是一個 tab 按鈕
+        if (event.target.classList.contains('tab')) {
+            const selectedModelId = event.target.dataset.model;
+            
+            // 更新所有按鈕的 active 狀態
+            // a. 移除所有按鈕的 'active' class
+            modelSelector.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // b. 為被點擊的按鈕加上 'active' class
+            event.target.classList.add('active');
+
+            // 更新顯示的內容
+            updateDisplay(selectedModelId);
+        }
+    });
+
+    // 4. 更新內容的函式
+    function updateDisplay(modelId) {
+        const data = carData[modelId];
+        if (!data) return; // 如果找不到資料就中斷
+
+        modelImage.src = data.image;
+        modelImage.alt = data.name;
+        modelName.textContent = data.name;
+        modelPrice.textContent = data.price;
+        orderLink.href = data.orderLink;
+        learnMoreLink.href = data.learnMoreLink;
+    }
+
+    // 初始載入時，不需要特別做什麼，因為 HTML 已經預設顯示 Model S 的內容
+</script>
 
 </body>
 </html>
