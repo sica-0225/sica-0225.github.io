@@ -14,8 +14,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 <link rel="stylesheet" href="style.css">
-<!-- === 引用新的 hero.css === -->
-<link rel="stylesheet" href="hero.css">
+<!-- 移除 hero.css，因為我們不再需要那個元件 -->
+<!-- <link rel="stylesheet" href="hero.css"> -->
+<!-- === 引用新的 modal.css === -->
+<link rel="stylesheet" href="modal.css">
 </head>
 <body>
 
@@ -27,7 +29,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <header>
     <a href="index.html" class="logo">WEBSITE</a>
     <nav>
-        <!-- 導覽列可以指向新的 hero-section -->
+        <!-- 按鈕觸發 modal，所以這裡可以簡化 -->
         <a href="#hero-section">探索車款</a>
         <a href="dealers.html">經銷商據點</a>
     </nav>
@@ -37,117 +39,124 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </header>
 
 <main>
-    <!-- === 新的 Hero Banner 與車款選擇器區塊 === -->
-    <section id="hero-section" class="hero-section">
-        <div class="container">
-            <!-- 車款選擇器 -->
-            <div class="model-selector">
-                <button class="tab active" data-model="model-s">Model S</button>
-                <button class="tab" data-model="model-3">Model 3</button>
-                <button class="tab" data-model="model-x">Model X</button>
-                <button class="tab" data-model="model-y">Model Y</button>
-            </div>
-
-            <!-- 車款內容顯示區 -->
-            <div class="model-display">
-                <div class="model-image-wrapper">
-                    <img id="model-image" src="https://via.placeholder.com/1200x800/333/fff?text=Model+S" alt="Model S">
-                </div>
-                <div class="model-info">
-                    <h1 id="model-name">Model S</h1>
-                    <p id="model-price" class="price">建議售價 NT$ 2,500,000 起</p>
-                    <div class="buttons">
-                        <a id="order-link" href="order.html" class="btn-primary">立即訂購</a>
-                        <a id="learn-more-link" href="learn-more.html" class="btn-secondary">了解更多</a>
-                    </div>
-                </div>
+    <!-- 我們沿用一個簡單的 Hero Banner 作為背景 -->
+    <section id="hero-section" style="background-image: url('https://via.placeholder.com/1920x1080/222/fff?text=The+Future+is+Here');">
+        <div class="content">
+            <h1>探索您的下一部座駕</h1>
+            <p>點擊下方按鈕，瀏覽我們完整的車系陣容</p>
+            <div class="buttons">
+                <!-- === 這個按鈕將用來打開彈出視窗 === -->
+                <button id="open-modal-btn" class="btn-primary">探索全車系</button>
+                <a href="dealers.html" class="btn-secondary">尋找經銷商</a>
             </div>
         </div>
     </section>
     
-    <!-- 您可以在這裡新增其他內容區塊，例如品牌故事、最新消息等 -->
     <section style="padding: 4rem 2rem; text-align: center;">
-        <h2>探索我們的品牌</h2>
-        <p>致力於提供最先進的駕駛體驗。</p>
+        <h2>品牌承諾</h2>
+        <p>我們致力於創新、安全與永續發展。</p>
     </section>
-
 </main>
 
-<!-- === 第三步：加入 JavaScript 互動邏輯 === -->
+<!-- === 彈出視窗的 HTML 結構 (放在 body 結尾) === -->
+<div id="vehicle-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+        <div class="modal-body">
+            <aside class="vehicle-sidebar">
+                <ul class="filter-list">
+                    <li><button class="filter-btn active" data-filter="all" data-title="全車系">全車系</button></li>
+                    <li><button class="filter-btn" data-filter="suv" data-title="休旅車">休旅車</button></li>
+                    <li><button class="filter-btn" data-filter="sedan" data-title="轎車">轎車</button></li>
+                    <li><button class="filter-btn" data-filter="ev" data-title="電動車">電動車</button></li>
+                </ul>
+            </aside>
+            <div class="vehicle-content">
+                <h2 id="category-title">全車系</h2>
+                <div id="vehicle-grid" class="vehicle-grid">
+                    <!-- 車款卡片將由 JavaScript 動態生成於此 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- === JavaScript 互動邏輯 === -->
 <script>
     // 1. 車款資料庫
-    const carData = {
-        'model-s': {
-            name: 'Model S',
-            price: '建議售價 NT$ 2,500,000 起',
-            image: 'https://via.placeholder.com/1200x800/333/fff?text=Model+S',
-            orderLink: 'order.html?model=s',
-            learnMoreLink: 'learn-more.html?model=s'
-        },
-        'model-3': {
-            name: 'Model 3',
-            price: '建議售價 NT$ 1,600,000 起',
-            image: 'https://via.placeholder.com/1200x800/444/fff?text=Model+3',
-            orderLink: 'order.html?model=3',
-            learnMoreLink: 'learn-more.html?model=3'
-        },
-        'model-x': {
-            name: 'Model X',
-            price: '建議售價 NT$ 2,800,000 起',
-            image: 'https://via.placeholder.com/1200x800/555/fff?text=Model+X',
-            orderLink: 'order.html?model=x',
-            learnMoreLink: 'learn-more.html?model=x'
-        },
-        'model-y': {
-            name: 'Model Y',
-            price: '建議售價 NT$ 1,800,000 起',
-            image: 'https://via.placeholder.com/1200x800/666/fff?text=Model+Y',
-            orderLink: 'order.html?model=y',
-            learnMoreLink: 'learn-more.html?model=y'
+    const vehicles = [
+        { name: 'Kuga', category: 'suv', image: 'https://via.placeholder.com/400x300/555/fff?text=Kuga', link: 'learn-more.html?model=kuga' },
+        { name: 'Focus', category: 'sedan', image: 'https://via.placeholder.com/400x300/666/fff?text=Focus', link: 'learn-more.html?model=focus' },
+        { name: 'Mustang Mach-E', category: 'ev', image: 'https://via.placeholder.com/400x300/777/fff?text=Mach-E', link: 'learn-more.html?model=mach-e' },
+        { name: 'Explorer', category: 'suv', image: 'https://via.placeholder.com/400x300/888/fff?text=Explorer', link: 'learn-more.html?model=explorer' },
+        { name: 'Mondeo', category: 'sedan', image: 'https://via.placeholder.com/400x300/999/fff?text=Mondeo', link: 'learn-more.html?model=mondeo' },
+        { name: 'Ranger', category: 'suv', image: 'https://via.placeholder.com/400x300/AAA/fff?text=Ranger', link: 'learn-more.html?model=ranger' }
+    ];
+
+    // 2. 獲取 DOM 元素
+    const openModalBtn = document.getElementById('open-modal-btn');
+    const modalOverlay = document.getElementById('vehicle-modal');
+    const closeModalBtn = document.getElementById('modal-close-btn');
+    
+    const grid = document.getElementById('vehicle-grid');
+    const filterList = document.querySelector('.filter-list');
+    const categoryTitle = document.getElementById('category-title');
+
+    // 3. 渲染車款卡片的函式
+    function renderVehicles(filter) {
+        grid.innerHTML = '';
+        const filteredVehicles = vehicles.filter(v => filter === 'all' || v.category === filter);
+
+        if (filteredVehicles.length === 0) {
+            grid.innerHTML = '<p>此分類目前沒有車款。</p>';
+            return;
         }
-    };
 
-    // 2. 獲取需要操作的 DOM 元素
-    const modelSelector = document.querySelector('.model-selector');
-    const modelImage = document.getElementById('model-image');
-    const modelName = document.getElementById('model-name');
-    const modelPrice = document.getElementById('model-price');
-    const orderLink = document.getElementById('order-link');
-    const learnMoreLink = document.getElementById('learn-more-link');
+        filteredVehicles.forEach(vehicle => {
+            const card = document.createElement('div');
+            card.className = 'vehicle-card';
+            card.innerHTML = `
+                <img src="${vehicle.image}" alt="${vehicle.name}">
+                <h3>${vehicle.name}</h3>
+                <a href="${vehicle.link}" class="btn-learn-more">了解更多</a>
+            `;
+            grid.appendChild(card);
+        });
+    }
 
-    // 3. 事件監聽：當點擊選擇器中的任何一個按鈕時
-    modelSelector.addEventListener('click', function(event) {
-        // 確保點擊的是一個 tab 按鈕
-        if (event.target.classList.contains('tab')) {
-            const selectedModelId = event.target.dataset.model;
-            
-            // 更新所有按鈕的 active 狀態
-            // a. 移除所有按鈕的 'active' class
-            modelSelector.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            // b. 為被點擊的按鈕加上 'active' class
-            event.target.classList.add('active');
+    // 4. 控制 Modal 的開關
+    function openModal() {
+        modalOverlay.classList.add('visible');
+        // 每次打開時，都渲染一次，確保內容最新
+        renderVehicles(filterList.querySelector('.active').dataset.filter);
+    }
 
-            // 更新顯示的內容
-            updateDisplay(selectedModelId);
+    function closeModal() {
+        modalOverlay.classList.remove('visible');
+    }
+
+    openModalBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+    // 點擊背景遮罩也可以關閉視窗
+    modalOverlay.addEventListener('click', (event) => {
+        if (event.target === modalOverlay) {
+            closeModal();
         }
     });
 
-    // 4. 更新內容的函式
-    function updateDisplay(modelId) {
-        const data = carData[modelId];
-        if (!data) return; // 如果找不到資料就中斷
+    // 5. 設定篩選按鈕的事件監聽
+    filterList.addEventListener('click', (event) => {
+        if (event.target.tagName === 'BUTTON') {
+            filterList.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
 
-        modelImage.src = data.image;
-        modelImage.alt = data.name;
-        modelName.textContent = data.name;
-        modelPrice.textContent = data.price;
-        orderLink.href = data.orderLink;
-        learnMoreLink.href = data.learnMoreLink;
-    }
-
-    // 初始載入時，不需要特別做什麼，因為 HTML 已經預設顯示 Model S 的內容
+            const filterValue = event.target.dataset.filter;
+            const titleValue = event.target.dataset.title;
+            
+            categoryTitle.textContent = titleValue;
+            renderVehicles(filterValue);
+        }
+    });
 </script>
 
 </body>
