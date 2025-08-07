@@ -3,41 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>經銷商據點</title>
+<title>經銷商據點 - WEBSITE</title>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-M3PJB5T6');</script> <!-- 請確認這是您的GTM ID -->
+})(window,document,'script','dataLayer','GTM-M3PJB5T6');</script>
 <!-- End Google Tag Manager -->
 
-<!-- Leaflet.js 的 CSS 和 JS，建立地圖所需 -->
+<!-- 引用全域樣式表 -->
+<link rel="stylesheet" href="style.css">
+<!-- 引用此頁專屬樣式表 -->
+<link rel="stylesheet" href="dealers.css">
+
+<!-- Leaflet.js 的 CSS 和 JS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-<style>
-    html, body { height: 100%; margin: 0; padding: 0; font-family: sans-serif; }
-    .page-wrapper { display: flex; height: 100vh; }
-    #panel { width: 350px; height: 100%; overflow-y: auto; box-shadow: 2px 0 5px rgba(0,0,0,0.1); z-index: 1000; background: #fff; }
-    #map { flex-grow: 1; height: 100%; }
-    .panel-header { padding: 15px; background-color: #f7f7f7; border-bottom: 1px solid #ddd; }
-    .panel-header h1 { margin: 0; font-size: 20px; }
-    .dealer-list { list-style: none; padding: 0; margin: 0; }
-    .dealer-list-item { padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; }
-    .dealer-list-item:hover { background-color: #f0f0f0; }
-    .dealer-list-item h2 { margin: 0 0 5px; font-size: 16px; }
-    .dealer-list-item p { margin: 0; font-size: 14px; color: #666; }
-    
-    /* 點擊後顯示的詳細資訊樣式 */
-    .dealer-info-card { padding: 20px; }
-    .dealer-info-card h2 { margin: 0 0 15px; font-size: 22px; color: #333; }
-    .dealer-info-card p { margin: 0 0 10px; font-size: 15px; color: #555; line-height: 1.6; }
-    .back-to-list { color: #007bff; cursor: pointer; margin-bottom: 20px; display: inline-block; }
-    .btn-test-drive { display: block; width: 100%; background-color: #007bff; color: white; border: none; padding: 15px; border-radius: 5px; cursor: pointer; font-size: 18px; text-align: center; text-decoration: none; box-sizing: border-box; }
-    .btn-test-drive:hover { background-color: #0056b3; }
-</style>
 </head>
 <body>
 
@@ -46,13 +30,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<div class="page-wrapper">
-    <div id="panel">
-        <!-- 這裡的內容會由 JavaScript 動態生成 -->
+<!-- 統一的頁首 -->
+<header>
+    <a href="index.html" class="logo">WEBSITE</a>
+    <nav>
+        <a href="index.html#section1">Model S</a>
+        <a href="index.html#section2">Model 3</a>
+        <a href="index.html#section3">Model X</a>
+        <a href="index.html#section4">Model Y</a>
+        <a href="dealers.html">經銷商據點</a>
+    </nav>
+    <div class="header-actions">
+        <a href="order.html" class="btn-secondary">線上訂購</a>
     </div>
-    <div id="map"></div>
-</div>
+</header>
 
+<main>
+    <div class="page-wrapper">
+        <div id="panel">
+            <!-- 這裡的內容會由 JavaScript 動態生成 -->
+        </div>
+        <div id="map"></div>
+    </div>
+</main>
+
+<!-- 您的 JavaScript 邏輯完全不需要修改，可以直接沿用 -->
 <script>
     // 1. 經銷商資料庫
     const dealers = [
@@ -62,15 +64,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     ];
 
     // 2. 初始化地圖
-    const map = L.map('map').setView([24.8, 121.1], 8); // 初始視圖設定在台灣中心附近
+    const map = L.map('map').setView([24.8, 121.1], 8);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
     const panel = document.getElementById('panel');
-    let markers = {}; // 用來存放地圖上的標記
+    let markers = {};
 
-    // 3. 顯示經銷商列表 (初始畫面)
+    // 3. 顯示經銷商列表
     function showDealerList() {
         let listHtml = `
             <div class="panel-header"><h1>經銷商據點</h1></div>
@@ -103,11 +105,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>`;
         panel.innerHTML = infoHtml;
 
-        // 將地圖視圖移動到該經銷商並放大
         map.setView(dealer.latlng, 15);
-        // 讓對應的標記跳動一下 (可選)
         if (markers[dealer.id]) {
-            markers[dealer.id].bounce(1);
+            // 這裡可以加上更酷炫的標記互動效果，但目前維持原樣
         }
     }
 
@@ -117,32 +117,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         marker.on('click', () => {
             showDealerInfo(dealer.id);
         });
-        markers[dealer.id] = marker; // 將標記存起來
+        markers[dealer.id] = marker;
     });
 
-    // 6. 設定事件監聽 (使用事件委派，效能更好)
+    // 6. 設定事件監聽
     panel.addEventListener('click', function(event) {
-        // 點擊列表項目
         const listItem = event.target.closest('.dealer-list-item');
         if (listItem) {
             showDealerInfo(listItem.dataset.id);
             return;
         }
 
-        // 點擊返回按鈕
         if (event.target.classList.contains('back-to-list')) {
             showDealerList();
-            map.setView([24.8, 121.1], 8); // 回到初始視圖
+            map.setView([24.8, 121.1], 8);
             return;
         }
 
-        // 點擊「預約試駕」按鈕，觸發 dataLayer
         const testDriveButton = event.target.closest('.btn-test-drive');
         if (testDriveButton) {
             const dealerId = testDriveButton.dataset.dealerId;
             const dealerName = testDriveButton.dataset.dealerName;
 
-            // 推送資料到 dataLayer
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
                 'event': 'book_test_drive',
