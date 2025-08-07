@@ -1,6 +1,9 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WEBSITE - 首頁</title>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -10,7 +13,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-M3PJB5T6');</script>
 <!-- End Google Tag Manager -->
 
-<title>類特斯拉風格網站</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,70 +22,68 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<!-- 新的頁首結構 -->
 <header>
-<a href="index.html" class="logo">WEBSITE</a>
-<nav>
-    <a href="#section1">Model S</a>
-    <a href="#section2">Model 3</a>
-    <a href="#section3">Model X</a>
-    <a href="#section4">Model Y</a>
-    <!-- === 新增的按鈕 === -->
-    <a href="dealers.html">經銷商據點</a>
-    <!-- ================== -->
-</nav>
-<div class="side-menu">
-    <a href="#">商店</a>
-    <a href="#">帳戶</a>
-    <a href="#">選單</a>
-</div>
+    <a href="index.html" class="logo">WEBSITE</a>
+    <nav>
+        <a href="#section1">Model S</a>
+        <a href="#section2">Model 3</a>
+        <a href="#section3">Model X</a>
+        <a href="#section4">Model Y</a>
+        <a href="dealers.html">經銷商據點</a>
+    </nav>
+    <div class="header-actions">
+        <!-- 參考福特官網，可放置主要行動呼籲按鈕 -->
+        <a href="order.html" class="btn-secondary">線上訂購</a>
+    </div>
 </header>
 
 <main>
-<section id="section1" style="background-image: url('https://via.placeholder.com/1920x1080/333/fff?text=Model+S');">
-    <div class="content">
-        <h1>Model S</h1>
-        <p>體驗極致駕馭</p>
-        <div class="buttons">
-            <a href="order.html" class="btn-primary" data-gtm-event="button_click" data-gtm-model="model-s" data-gtm-action="order">立即訂購</a>
-            <a href="learn-more.html" class="btn-secondary" data-gtm-event="button_click" data-gtm-model="model-s" data-gtm-action="learn-more">了解更多</a>
+    <!-- 所有區塊現在都在 main 裡面，形成一個長頁面 -->
+    <section id="section1" style="background-image: url('https://via.placeholder.com/1920x1080/333/fff?text=Model+S');">
+        <div class="content">
+            <h1>Model S</h1>
+            <p>體驗極致駕馭</p>
+            <div class="buttons">
+                <a href="order.html" class="btn-primary" data-gtm-event="button_click" data-gtm-model="model-s" data-gtm-action="order">立即訂購</a>
+                <a href="learn-more.html" class="btn-secondary" data-gtm-event="button_click" data-gtm-model="model-s" data-gtm-action="learn-more">了解更多</a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section id="section2" style="background-image: url('https://via.placeholder.com/1920x1080/444/fff?text=Model+3');">
-    <div class="content">
-        <h1>Model 3</h1>
-        <p>為大眾設計的電動車</p>
-        <div class="buttons">
-            <a href="order.html" class="btn-primary" data-gtm-event="button_click" data-gtm-model="model-3" data-gtm-action="order">立即訂購</a>
-            <a href="learn-more.html" class="btn-secondary" data-gtm-event="button_click" data-gtm-model="model-3" data-gtm-action="learn-more">了解更多</a>
+    <section id="section2" style="background-image: url('https://via.placeholder.com/1920x1080/444/fff?text=Model+3');">
+        <div class="content">
+            <h1>Model 3</h1>
+            <p>為大眾設計的電動車</p>
+            <div class="buttons">
+                <a href="order.html" class="btn-primary" data-gtm-event="button_click" data-gtm-model="model-3" data-gtm-action="order">立即訂購</a>
+                <a href="learn-more.html" class="btn-secondary" data-gtm-event="button_click" data-gtm-model="model-3" data-gtm-action="learn-more">了解更多</a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section id="section3" style="background-image: url('https://via.placeholder.com/1920x1080/555/fff?text=Model+X');">
-    <div class="content">
-        <h1>Model X</h1>
-        <p>最安全的 SUV</p>
-        <div class="buttons">
-            <a href="order.html" class="btn-primary" data-gtm-event="button_click" data-gtm-model="model-x" data-gtm-action="order">立即訂購</a>
-            <a href="learn-more.html" class="btn-secondary" data-gtm-event="button_click" data-gtm-model="model-x" data-gtm-action="learn-more">了解更多</a>
+    <section id="section3" style="background-image: url('https://via.placeholder.com/1920x1080/555/fff?text=Model+X');">
+        <div class="content">
+            <h1>Model X</h1>
+            <p>最安全的 SUV</p>
+            <div class="buttons">
+                <a href="order.html" class="btn-primary" data-gtm-event="button_click" data-gtm-model="model-x" data-gtm-action="order">立即訂購</a>
+                <a href="learn-more.html" class="btn-secondary" data-gtm-event="button_click" data-gtm-model="model-x" data-gtm-action="learn-more">了解更多</a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section id="section4" style="background-image: url('https://via.placeholder.com/1920x1080/666/fff?text=Model+Y');">
-    <div class="content">
-        <h1>Model Y</h1>
-        <p>空間與效能的完美結合</p>
-        <div class="buttons">
-            <a href="order.html" class="btn-primary" data-gtm-event="button_click" data-gtm-model="model-y" data-gtm-action="order">立即訂購</a>
-            <a href="learn-more.html" class="btn-secondary" data-gtm-event="button_click" data-gtm-model="model-y" data-gtm-action="learn-more">了解更多</a>
+    <section id="section4" style="background-image: url('https://via.placeholder.com/1920x1080/666/fff?text=Model+Y');">
+        <div class="content">
+            <h1>Model Y</h1>
+            <p>空間與效能的完美結合</p>
+            <div class="buttons">
+                <a href="order.html" class="btn-primary" data-gtm-event="button_click" data-gtm-model="model-y" data-gtm-action="order">立即訂購</a>
+                <a href="learn-more.html" class="btn-secondary" data-gtm-event="button_click" data-gtm-model="model-y" data-gtm-action="learn-more">了解更多</a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 </main>
 
 </body>
 </html>
-
